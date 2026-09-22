@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AiRemOne — Почему выбирают нас (Вариант C)</title>
+<meta name="description" content="AiRemOne — блок преимуществ компании по ремонту квартир под ключ в Москве. Вариант дизайна C.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F3;
+    --ink: #16140F;
+    --accent: #FF4B12;
+    --accent-2: #FFD400;
+    --line: #16140F;
+    --shadow: 6px 6px 0 var(--ink);
+  }
+
+  * , *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Unbounded', sans-serif; margin: 0; line-height: 1.08; }
+  p { margin: 0; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+  .container { width: min(1200px, 100% - 2.5rem); margin-inline: auto; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    font-weight: 800;
+    font-size: .76rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .eyebrow::before { content: ""; width: 8px; height: 8px; background: var(--accent); flex: none; }
+
+  .seam-top {
+    height: 40px;
+    background: var(--ink);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  }
+
+  /* ---------- Advantages ---------- */
+  .advantages {
+    position: relative;
+    padding: 5rem 0 5.5rem;
+    overflow: hidden;
+  }
+  .advantages::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(135deg, rgba(22,20,15,.05) 0 1px, transparent 1px 16px);
+    pointer-events: none;
+  }
+  .advantages .container { position: relative; z-index: 1; }
+
+  .section-head { max-width: 640px; margin-bottom: 3rem; }
+  .section-head h2 {
+    font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+    font-weight: 800;
+    margin-top: .8rem;
+    letter-spacing: -.01em;
+  }
+
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1.5rem;
+  }
+
+  .advantage-card {
+    position: relative;
+    background: var(--bg);
+    border: 2px solid var(--ink);
+    box-shadow: var(--shadow);
+    padding: 1.85rem 1.6rem 1.6rem;
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, opacity .6s ease;
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  .advantage-card.is-visible { opacity: 1; transform: translateY(0); }
+  .advantage-card:nth-child(1) { transition-delay: .02s; }
+  .advantage-card:nth-child(2) { transition-delay: .09s; }
+  .advantage-card:nth-child(3) { transition-delay: .16s; }
+  .advantage-card:nth-child(4) { transition-delay: .23s; }
+  .advantage-card:nth-child(5) { transition-delay: .30s; }
+  .advantage-card:nth-child(6) { transition-delay: .37s; }
+
+  .advantage-card:hover { transform: translate(-3px, -3px) rotate(-1deg); box-shadow: 9px 9px 0 var(--ink); }
+  .advantage-card:nth-child(even):hover { transform: translate(-3px, -3px) rotate(1deg); }
+
+  .advantage-num {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 800;
+    font-size: 2.3rem;
+    color: rgba(22,20,15,.12);
+    position: absolute;
+    top: .4rem;
+    right: .9rem;
+    line-height: 1;
+  }
+  .advantage-card h3 { font-size: 1.18rem; font-weight: 700; margin-bottom: .65rem; padding-right: 2.75rem; }
+  .advantage-card p { font-size: .93rem; color: rgba(22,20,15,.72); }
+
+  .advantage-card:nth-child(1) { grid-column: span 4; }
+  .advantage-card:nth-child(2) { grid-column: span 2; }
+  .advantage-card:nth-child(3) { grid-column: span 2; }
+  .advantage-card:nth-child(4) { grid-column: span 2; }
+  .advantage-card:nth-child(5) { grid-column: span 2; }
+  .advantage-card:nth-child(6) {
+    grid-column: span 6;
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+  }
+  .advantage-card:nth-child(6) .advantage-num {
+    position: static;
+    font-size: 3rem;
+    color: rgba(22,20,15,.16);
+    flex: none;
+  }
+  .advantage-card:nth-child(6) h3 { padding-right: 0; margin-bottom: .4rem; }
+  .advantage-card:nth-child(6) .advantage-body { flex: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+    }
+    .advantage-card { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 780px) {
+    .advantages-grid { grid-template-columns: 1fr; }
+    .advantage-card,
+    .advantage-card:nth-child(6) {
+      grid-column: span 1;
+      display: block;
+    }
+    .advantage-card:nth-child(6) .advantage-num { font-size: 2.3rem; margin-bottom: .5rem; }
+  }
+
+  @media (max-width: 600px) {
+    :root { --shadow: 3px 3px 0 var(--ink); }
+    .advantages { padding: 3.25rem 0 3.5rem; }
+    .advantage-card:hover { transform: translate(-2px, -2px) rotate(0deg); box-shadow: 6px 6px 0 var(--ink); }
+    .advantage-card:nth-child(even):hover { transform: translate(-2px, -2px) rotate(0deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="seam-top" aria-hidden="true"></div>
+
+<section class="advantages" id="advantages">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Почему мы</p>
+      <h2>Почему выбирают нас</h2>
+    </div>
+
+    <div class="advantages-grid">
+      <article class="advantage-card">
+        <span class="advantage-num">01</span>
+        <h3>Опыт 15 лет</h3>
+        <p>Более 500 сданных объектов. Работаем с квартирами любой сложности — от студий до пентхаусов. Каждый объект под личным контролем прораба.</p>
+      </article>
+
+      <article class="advantage-card">
+        <span class="advantage-num">02</span>
+        <h3>Опытные мастера</h3>
+        <p>Свой штат квалифицированных специалистов с профильным образованием, регулярная аттестация. Работаем без посредников.</p>
+      </article>
+
+      <article class="advantage-card">
+        <span class="advantage-num">03</span>
+        <h3>Фиксированная смета</h3>
+        <p>Смета утверждается до начала работ и не меняется. Любые доп. работы — только с вашего согласия.</p>
+      </article>
+
+      <article class="advantage-card">
+        <span class="advantage-num">04</span>
+        <h3>Гарантия качества</h3>
+        <p>Письменная гарантия 3 года на все виды работ. Недочёты устраняем за свой счёт в кратчайшие сроки.</p>
+      </article>
+
+      <article class="advantage-card">
+        <span class="advantage-num">05</span>
+        <h3>Фотоотчёт</h3>
+        <p>Ежедневные фото в Telegram, доступ к камерам на объекте. Полная прозрачность хода ремонта в реальном времени.</p>
+      </article>
+
+      <article class="advantage-card">
+        <span class="advantage-num">06</span>
+        <div class="advantage-body">
+          <h3>Свои материалы</h3>
+          <p>Закупаем материалы сами со скидками партнёров или работаем с вашими. Даём точный расчёт количества.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var cards = document.querySelectorAll('.advantage-card');
+    if (!cards.length) return;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      cards.forEach(function (c) { c.classList.add('is-visible'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .2 });
+    cards.forEach(function (c) { observer.observe(c); });
+  })();
+</script>
+
+</body>
+</html>

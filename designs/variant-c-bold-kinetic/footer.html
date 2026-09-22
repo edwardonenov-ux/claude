@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AiRemOne — Футер (Вариант C)</title>
+<meta name="description" content="AiRemOne — футер сайта компании по ремонту квартир под ключ в Москве. Вариант дизайна C.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F3;
+    --ink: #16140F;
+    --accent: #FF4B12;
+    --accent-2: #FFD400;
+  }
+
+  * , *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Unbounded', sans-serif; margin: 0; line-height: 1.08; }
+  p { margin: 0; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  :focus-visible { outline: 3px solid var(--accent-2); outline-offset: 3px; }
+
+  .container { width: min(1200px, 100% - 2.5rem); margin-inline: auto; }
+
+  .footer-stripe {
+    height: 8px;
+    background: repeating-linear-gradient(-45deg, var(--accent) 0 10px, var(--accent-2) 10px 14px, var(--ink) 14px 16px);
+  }
+
+  .site-footer {
+    background: var(--ink);
+    color: var(--bg);
+    padding-top: 3.5rem;
+  }
+
+  .logo { font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -.02em; color: var(--bg); }
+  .logo span { color: var(--accent); }
+  .footer-tagline { margin-top: .85rem; color: rgba(250,248,243,.62); max-width: 34ch; font-size: .92rem; }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 2.5rem;
+    padding: 3rem 0 2.5rem;
+    border-bottom: 2px solid rgba(250,248,243,.18);
+  }
+
+  .footer-col h4 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: .8rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.1rem;
+  }
+  .footer-col ul li { margin-bottom: .65rem; }
+  .footer-col a {
+    color: rgba(250,248,243,.85);
+    font-size: .95rem;
+    transition: color .15s ease;
+  }
+  .footer-col a:hover, .footer-col a:focus-visible { color: var(--accent-2); }
+
+  .footer-contacts li {
+    color: rgba(250,248,243,.85);
+    font-size: .95rem;
+    margin-bottom: .75rem;
+  }
+  .footer-contacts .label {
+    display: block;
+    font-size: .72rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(250,248,243,.5);
+    margin-bottom: .15rem;
+  }
+  .footer-contacts a:hover, .footer-contacts a:focus-visible { color: var(--accent-2); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.5rem 0 2.5rem;
+    font-size: .85rem;
+    color: rgba(250,248,243,.55);
+  }
+  .footer-legal { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-legal a { color: rgba(250,248,243,.7); }
+  .footer-legal a:hover, .footer-legal a:focus-visible { color: var(--accent-2); }
+
+  @media (max-width: 780px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: span 2; }
+  }
+
+  @media (max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 0 2rem; }
+    .footer-brand { grid-column: span 1; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; padding: 1.25rem 0 2rem; }
+    .footer-stripe { height: 6px; background-size: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="footer-stripe" aria-hidden="true"></div>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col footer-brand">
+      <a href="#" class="logo">Ai<span>Rem</span>One</a>
+      <p class="footer-tagline">Ремонт квартир под ключ и дизайн интерьеров в Москве. Энергично, честно, по срокам.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Навигация</h4>
+      <ul>
+        <li><a href="#">Ремонт под ключ</a></li>
+        <li><a href="#">Стоимость работ</a></li>
+        <li><a href="#">Дизайн-проект</a></li>
+        <li><a href="#">Наши работы</a></li>
+        <li><a href="#">О нас</a></li>
+        <li><a href="#">Контакты</a></li>
+        <li><a href="#">Вакансии</a></li>
+        <li><a href="#">Документы</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <ul class="footer-contacts">
+        <li>
+          <span class="label">Телефон</span>
+          <a href="tel:+79804998880">+7 (980) 499-88-80</a>
+        </li>
+        <li>
+          <span class="label">Email</span>
+          <a href="mailto:airemone2@gmail.com">airemone2@gmail.com</a>
+        </li>
+        <li>
+          <span class="label">Адрес</span>
+          г. Москва, ул. Барклая, 6, к.2
+        </li>
+        <li>
+          <span class="label">Часы работы</span>
+          Пн–Пт 9:00–20:00, Сб–Вс 10:00–18:00
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <span>© 2026 AiRemOne</span>
+    <nav class="footer-legal" aria-label="Правовая информация">
+      <a href="#">Политика конфиденциальности</a>
+      <a href="#">Договор оферты</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

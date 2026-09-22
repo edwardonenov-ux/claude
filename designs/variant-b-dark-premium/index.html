@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AiRemOne — Ремонт квартир под ключ в Москве</title>
+<meta name="description" content="Ремонт квартир под ключ в Москве. Бесплатный выезд замерщика, смета за 24 часа, гарантия 3 года на все виды работ.">
+<meta name="theme-color" content="#14120F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14120F;
+    --bg-alt:#1C1914;
+    --surface:#211D17;
+    --ink:#F4EEE2;
+    --ink-soft:#B7AC98;
+    --accent:#CFA35C;
+    --accent-bright:#E8C077;
+    --line: rgba(244,238,226,0.12);
+    --ease: cubic-bezier(.16,.8,.24,1);
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font:inherit; color:inherit; background:none; border:none; cursor:pointer; }
+  h1,h2,h3,h4{ font-family:'Bricolage Grotesque',sans-serif; color:var(--ink); margin:0; font-weight:700; letter-spacing:-0.01em; }
+  .container{ width:100%; max-width:1240px; margin-inline:auto; padding-inline:1.5rem; }
+
+  .skip-link{ position:absolute; left:-999px; top:1rem; background:var(--accent); color:var(--bg); padding:.75rem 1.25rem; z-index:300; border-radius:4px; font-weight:600; }
+  .skip-link:focus{ left:1rem; }
+
+  .kicker{ display:inline-flex; align-items:center; gap:.75rem; text-transform:uppercase; letter-spacing:.12em; font-size:.75rem; font-weight:600; color:var(--accent-bright); margin-bottom:1rem; }
+  .kicker::before{ content:''; width:28px; height:1px; background:var(--accent); }
+
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.is-visible{ opacity:1; transform:none; }
+
+  /* Buttons */
+  .btn{ display:inline-flex; align-items:center; justify-content:center; padding:1rem 1.9rem; font-size:.95rem; font-weight:600; border-radius:4px; transition:transform .45s var(--ease), box-shadow .45s var(--ease), background .35s var(--ease), border-color .35s var(--ease); white-space:nowrap; }
+  .btn-primary{ background:linear-gradient(135deg, var(--accent), var(--accent-bright)); color:var(--bg); }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 34px -12px rgba(207,163,92,.55); }
+  .btn-secondary{ border:1px solid var(--line); color:var(--ink); }
+  .btn-secondary:hover{ border-color:var(--accent-bright); background:rgba(207,163,92,.08); transform:translateY(-2px); }
+  .btn-ghost-sm{ padding:.6rem 1.2rem; font-size:.85rem; border:1px solid var(--line); border-radius:4px; }
+  .btn-ghost-sm:hover{ border-color:var(--accent-bright); color:var(--accent-bright); }
+  .btn-sm{ padding:.85rem 1.6rem; font-size:.9rem; }
+
+  /* Nav */
+  .nav{ position:fixed; top:0; left:0; right:0; z-index:100; padding:1.15rem 0; background:linear-gradient(180deg, rgba(20,18,15,.85), rgba(20,18,15,0)); backdrop-filter:blur(6px); transition:background .4s var(--ease), padding .4s var(--ease), border-color .4s var(--ease); border-bottom:1px solid transparent; }
+  .nav.is-scrolled{ background:rgba(20,18,15,.94); padding:.8rem 0; border-bottom-color:var(--line); backdrop-filter:blur(10px); }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
+  .logo{ font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:1.35rem; letter-spacing:-0.01em; }
+  .logo span{ color:var(--accent-bright); }
+  .nav-links{ display:flex; gap:2rem; align-items:center; }
+  .nav-links a{ font-size:.92rem; color:var(--ink-soft); font-weight:500; position:relative; transition:color .3s var(--ease); }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a::after{ content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px; background:var(--accent-bright); transition:width .3s var(--ease); }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-actions{ display:flex; align-items:center; gap:1.25rem; }
+  .nav-phone{ font-weight:600; font-size:.92rem; white-space:nowrap; }
+  .nav-phone:hover{ color:var(--accent-bright); }
+  .nav-toggle{ display:none; flex-direction:column; gap:5px; width:28px; padding:.4rem 0; }
+  .nav-toggle span{ display:block; height:1.5px; background:var(--ink); transition:transform .3s var(--ease), opacity .3s var(--ease); }
+
+  @media (max-width:900px){
+    .nav-toggle{ display:flex; }
+    .nav-phone{ display:none; }
+    .nav-links{ position:fixed; top:63px; left:0; right:0; background:rgba(20,18,15,.98); border-bottom:1px solid var(--line); flex-direction:column; align-items:flex-start; padding:1.5rem; gap:1.15rem; max-height:0; opacity:0; overflow:hidden; pointer-events:none; transition:max-height .4s var(--ease), opacity .3s var(--ease); }
+    .nav.is-open .nav-links{ max-height:420px; opacity:1; pointer-events:auto; }
+    .nav.is-open .nav-toggle span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+    .nav.is-open .nav-toggle span:nth-child(2){ opacity:0; }
+    .nav.is-open .nav-toggle span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+  }
+  @media (max-width:600px){ .btn-ghost-sm{ display:none; } }
+
+  /* Hero */
+  .hero{ position:relative; min-height:100vh; display:flex; align-items:center; overflow:hidden; padding:7.5rem 0 4rem; }
+  .hero-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; background:radial-gradient(ellipse at 28% 18%, var(--bg-alt), var(--bg) 72%); }
+  .hero-bg-image{ position:absolute; inset:-4%; width:108%; height:108%; animation:kenburns 24s var(--ease) forwards; color:var(--line); }
+  .hero-bg-image svg{ width:100%; height:100%; }
+  .hero-bg-vignette{ position:absolute; inset:0; background:
+      linear-gradient(180deg, rgba(20,18,15,.55) 0%, rgba(20,18,15,.32) 34%, rgba(20,18,15,.88) 100%),
+      linear-gradient(90deg, rgba(20,18,15,.7), rgba(20,18,15,.15) 45%, rgba(20,18,15,.7)); }
+  @keyframes kenburns{ from{ transform:scale(1); } to{ transform:scale(1.08); } }
+
+  .hero-photo-caption{ position:absolute; right:2.5rem; bottom:2.5rem; z-index:1; padding:.7rem 1.05rem; border:1px solid var(--line); background:rgba(20,18,15,.4); }
+  .hero-photo-caption::before,.hero-photo-caption::after{ content:''; position:absolute; width:10px; height:10px; }
+  .hero-photo-caption::before{ top:-1px; left:-1px; border-top:1px solid var(--accent-bright); border-left:1px solid var(--accent-bright); }
+  .hero-photo-caption::after{ bottom:-1px; right:-1px; border-bottom:1px solid var(--accent-bright); border-right:1px solid var(--accent-bright); }
+  .hero-photo-caption p{ margin:0; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); white-space:nowrap; }
+  @media (max-width:600px){ .hero-photo-caption{ display:none; } }
+
+  .hero-content{ position:relative; z-index:2; max-width:760px; }
+  .hero h1{ font-size:clamp(2.4rem, 4.6vw + 1rem, 4.6rem); line-height:1.04; letter-spacing:-0.02em; margin-bottom:1.5rem; }
+  .hero-subtitle{ font-size:clamp(1.05rem, 1.4vw + .6rem, 1.25rem); color:var(--ink-soft); max-width:620px; margin-bottom:2.5rem; }
+  .hero-cta{ display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:3.5rem; }
+  .hero-stats{ display:flex; gap:clamp(1.5rem,4vw,3.5rem); flex-wrap:wrap; padding-top:2.25rem; border-top:1px solid var(--line); }
+  .stat-number{ font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(2rem,3vw,2.75rem); font-weight:800; color:var(--ink); transition:text-shadow 1.2s ease; }
+  .stat-number.glow-done{ text-shadow:0 0 26px rgba(232,192,119,.5); }
+  .stat-label{ font-size:.8rem; color:var(--ink-soft); margin-top:.35rem; max-width:150px; }
+
+  .hero-scroll-cue{ position:absolute; left:50%; bottom:2rem; transform:translateX(-50%); z-index:2; display:flex; flex-direction:column; align-items:center; gap:.6rem; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+  .hero-scroll-cue span{ width:1px; height:34px; background:linear-gradient(var(--accent-bright), transparent); animation:scrollcue 2.2s ease infinite; }
+  @keyframes scrollcue{ 0%{ transform:scaleY(0); transform-origin:top; } 50%{ transform:scaleY(1); transform-origin:top; } 51%{ transform-origin:bottom; } 100%{ transform:scaleY(0); transform-origin:bottom; } }
+  @media (max-width:760px){ .hero-scroll-cue{ display:none; } }
+
+  /* Section head (shared by advantages + process) */
+  .section-head{ position:relative; z-index:1; display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:1.5rem; }
+  .section-head h2{ font-size:clamp(2rem,3.4vw,3.1rem); max-width:640px; }
+  .section-head-meta{ font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); border:1px solid var(--line); padding:.55rem .9rem; white-space:nowrap; }
+  .process-link{ font-size:.85rem; font-weight:600; color:var(--accent-bright); border-bottom:1px solid transparent; transition:border-color .3s var(--ease); }
+  .process-link:hover{ border-bottom-color:var(--accent-bright); }
+
+  .blueprint-rule{ position:relative; z-index:1; width:100%; height:16px; margin-top:1.5rem; margin-bottom:clamp(2.5rem,5vw,4rem); }
+  .blueprint-rule path{ fill:none; stroke:var(--accent); stroke-width:1; stroke-dasharray:1300; stroke-dashoffset:1300; transition:stroke-dashoffset 1.8s var(--ease); }
+  .advantages.grid-visible .blueprint-rule path{ stroke-dashoffset:0; }
+
+  /* Advantages */
+  .advantages{ position:relative; padding:clamp(5rem,9vw,7.5rem) 0; overflow:hidden; }
+  .advantages-grid-bg{ position:absolute; inset:0; z-index:0;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(ellipse at 50% 20%, black, transparent 72%);
+    mask-image:radial-gradient(ellipse at 50% 20%, black, transparent 72%);
+    opacity:0; transition:opacity 1.6s var(--ease); }
+  .advantages.grid-visible .advantages-grid-bg{ opacity:1; }
+
+  .cards-grid{ position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+  @media (max-width:900px){ .cards-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .cards-grid{ grid-template-columns:1fr; } .section-head{ align-items:flex-start; } }
+
+  .card{ position:relative; padding:2.25rem 2rem; border:1px solid var(--line); background:var(--surface); border-radius:6px;
+    opacity:0; transform:translateY(28px);
+    transition:opacity .8s var(--ease), transform .5s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease); }
+  .card.is-visible{ opacity:1; transform:none; }
+  .card:hover{ border-color:var(--accent); box-shadow:0 22px 46px -26px rgba(207,163,92,.45); transform:translateY(-4px); }
+  .card-index{ position:absolute; top:1.5rem; right:1.75rem; font-family:'Bricolage Grotesque',sans-serif; font-size:.8rem; color:var(--ink-soft); letter-spacing:.05em; }
+  .card-icon{ width:46px; height:46px; margin-bottom:1.5rem; color:var(--accent); }
+  .card-icon svg{ width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; }
+  .card h3{ font-size:1.2rem; margin-bottom:.75rem; }
+  .card p{ color:var(--ink-soft); font-size:.95rem; line-height:1.65; margin:0; }
+
+  /* Process teaser */
+  .process{ position:relative; padding:clamp(4.5rem,8vw,6.5rem) 0; background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .process-track{ position:relative; margin-top:clamp(2.5rem,5vw,4rem); }
+  .process-line{ position:absolute; top:23px; left:0; width:100%; height:4px; z-index:0; }
+  .process-line path{ fill:none; stroke:var(--line); stroke-width:1; stroke-dasharray:1300; stroke-dashoffset:1300; transition:stroke-dashoffset 1.8s var(--ease); }
+  .process.is-drawn .process-line path{ stroke-dashoffset:0; stroke:var(--accent); }
+  .process-grid{ position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,1fr); gap:2.5rem; }
+  .process-step{ opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .process-step.is-visible{ opacity:1; transform:none; }
+  .process-node{ display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:50%; border:1px solid var(--accent); background:var(--bg-alt); color:var(--accent-bright); font-family:'Bricolage Grotesque',sans-serif; font-weight:700; margin-bottom:1.5rem; }
+  .process-step h3{ font-size:1.1rem; margin-bottom:.6rem; }
+  .process-step p{ color:var(--ink-soft); font-size:.92rem; margin:0; }
+  @media (max-width:760px){ .process-grid{ grid-template-columns:1fr; gap:2.25rem; } .process-line{ display:none; } }
+
+  /* Footer */
+  .footer-col-title{ text-transform:uppercase; letter-spacing:.1em; font-size:.75rem; font-weight:600; color:var(--accent-bright); margin-bottom:1.35rem; }
+  .site-footer{ position:relative; background:var(--bg-alt); padding-top:clamp(3.5rem,6vw,5rem); }
+  .site-footer::before{ content:''; position:absolute; top:-1px; left:50%; transform:translateX(-50%); width:120px; height:2px; background:var(--accent); }
+  .footer-top{ display:grid; grid-template-columns:1.6fr 1fr 1fr 1.2fr; gap:2.5rem; padding-bottom:3rem; }
+  .footer-brand .logo{ font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:1.4rem; letter-spacing:-0.01em; display:inline-block; margin-bottom:1rem; }
+  .footer-brand .logo span{ color:var(--accent-bright); }
+  .footer-brand p{ color:var(--ink-soft); font-size:.92rem; max-width:320px; margin:0 0 1.35rem; }
+  .footer-hours p{ margin:0 0 .35rem; font-size:.88rem; color:var(--ink-soft); }
+  .footer-hours p:last-child{ margin-bottom:0; }
+  .footer-hours::before{ content:'Часы работы'; display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); opacity:.7; margin-bottom:.5rem; }
+  .footer-col ul{ list-style:none; margin:0; padding:0; }
+  .footer-col li{ margin-bottom:.85rem; }
+  .footer-col li:last-child{ margin-bottom:0; }
+  .footer-col a{ font-size:.92rem; color:var(--ink-soft); transition:color .3s var(--ease); }
+  .footer-col a:hover{ color:var(--accent-bright); }
+  .footer-contacts li{ color:var(--ink-soft); font-size:.92rem; }
+  .footer-cta-text{ color:var(--ink-soft); font-size:.9rem; margin:0 0 1.25rem; max-width:240px; }
+  .footer-divider{ border-top:1px solid var(--line); }
+  .footer-bottom{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; padding-block:1.75rem; }
+  .footer-bottom p{ margin:0; font-size:.85rem; color:var(--ink-soft); }
+  .footer-legal{ display:flex; gap:1.75rem; flex-wrap:wrap; }
+  .footer-legal a{ font-size:.85rem; color:var(--ink-soft); transition:color .3s var(--ease); }
+  .footer-legal a:hover{ color:var(--accent-bright); }
+  @media (max-width:900px){ .footer-top{ grid-template-columns:1fr 1fr; row-gap:2.5rem; } }
+  @media (max-width:560px){ .footer-top{ grid-template-columns:1fr; } .footer-bottom{ flex-direction:column; align-items:flex-start; } }
+
+  @media (max-width:600px){
+    .container{ padding-inline:1.25rem; }
+    .hero{ padding-top:6.5rem; }
+    .hero-cta{ gap:.85rem; }
+    .btn{ padding:.9rem 1.5rem; }
+    .hero-stats{ gap:1.75rem; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#hero-content">Перейти к содержанию</a>
+
+<header class="nav" id="siteNav">
+  <div class="nav-inner container">
+    <a href="#hero-content" class="logo">AiRem<span>One</span></a>
+    <nav class="nav-links" id="navLinks" aria-label="Основная навигация">
+      <a href="#">Ремонт под ключ</a>
+      <a href="#">Стоимость работ</a>
+      <a href="#">Дизайн-проект</a>
+      <a href="#">Наши работы</a>
+      <a href="#advantages">О нас</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:+79804998880" class="nav-phone">+7 (980) 499-88-80</a>
+      <a href="#" class="btn-ghost-sm">Оставить заявку</a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="hero-content">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-bg-image">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M40 0H0V40" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+          </pattern>
+        </defs>
+        <rect width="1600" height="900" fill="url(#grid)"/>
+        <g fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="180" y="140" width="1240" height="620"/>
+          <line x1="640" y1="140" x2="640" y2="540"/>
+          <line x1="1040" y1="140" x2="1040" y2="760"/>
+          <line x1="180" y1="540" x2="1040" y2="540"/>
+          <line x1="640" y1="620" x2="1040" y2="620"/>
+        </g>
+        <g fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.55">
+          <rect x="700" y="600" width="280" height="160"/>
+        </g>
+        <g fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.7">
+          <path d="M640 460 A80 80 0 0 0 720 540"/>
+          <line x1="640" y1="460" x2="640" y2="540"/>
+          <path d="M1040 600 A60 60 0 0 1 980 660"/>
+        </g>
+        <g stroke="currentColor" stroke-width="1" opacity="0.5">
+          <line x1="180" y1="95" x2="1420" y2="95"/>
+          <line x1="180" y1="85" x2="180" y2="105"/>
+          <line x1="1420" y1="85" x2="1420" y2="105"/>
+          <line x1="140" y1="140" x2="140" y2="760"/>
+          <line x1="130" y1="140" x2="150" y2="140"/>
+          <line x1="130" y1="760" x2="150" y2="760"/>
+        </g>
+        <text x="800" y="80" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.55" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="1">14 600</text>
+        <text x="95" y="450" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.55" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="1" transform="rotate(-90 95 450)">8 200</text>
+        <g stroke="var(--accent-bright)" stroke-width="1" opacity="0.6" fill="none">
+          <circle cx="1330" cy="220" r="34"/>
+          <line x1="1330" y1="190" x2="1330" y2="250"/>
+          <line x1="1300" y1="220" x2="1360" y2="220"/>
+        </g>
+        <text x="1330" y="182" text-anchor="middle" font-size="13" fill="var(--accent-bright)" opacity="0.7" font-family="'Plus Jakarta Sans', sans-serif">N</text>
+      </svg>
+    </div>
+    <div class="hero-bg-vignette"></div>
+    <div class="hero-photo-caption">
+      <p>Фото объекта · Проект №014, Москва</p>
+    </div>
+  </div>
+
+  <div class="container hero-content">
+    <p class="kicker">Инженерная точность · ремонт под ключ</p>
+    <h1>Ремонт квартир под ключ в Москве</h1>
+    <p class="hero-subtitle">Бесплатный выезд замерщика. Смета за 24 часа. Гарантия 3 года на все виды работ.</p>
+    <div class="hero-cta">
+      <a href="#" class="btn btn-primary">Рассчитать ремонт под ключ</a>
+      <a href="#" class="btn btn-secondary">Смотреть цены</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number" data-count="500" data-suffix="+">0</div>
+        <div class="stat-label">реализованных проектов</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-count="15" data-suffix="">0</div>
+        <div class="stat-label">лет на рынке</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-count="24" data-suffix="ч">0</div>
+        <div class="stat-label">на расчёт сметы</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-cue" aria-hidden="true"><span></span>Листайте вниз</div>
+</section>
+
+<section class="advantages" id="advantages">
+  <div class="advantages-grid-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <p class="kicker">Наши преимущества</p>
+        <h2>Почему выбирают нас</h2>
+      </div>
+      <span class="section-head-meta">Пункты 01–06</span>
+    </div>
+
+    <svg class="blueprint-rule" viewBox="0 0 1200 16" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 8H1200"/>
+    </svg>
+
+    <div class="cards-grid">
+
+      <article class="card">
+        <span class="card-index">01</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="10" r="3"/><line x1="24" y1="13" x2="15" y2="40"/><line x1="24" y1="13" x2="33" y2="40"/><path d="M17 34a9 9 0 0 1 14 0"/></svg>
+        </div>
+        <h3>Опыт 15 лет</h3>
+        <p>Более 500 сданных объектов. Работаем с квартирами любой сложности — от студий до пентхаусов. Каждый объект под личным контролем прораба.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-index">02</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><path d="M12 34a12 12 0 0 1 24 0"/><rect x="20" y="14" width="8" height="6" rx="1"/><path d="M8 34h32v4a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-4z"/></svg>
+        </div>
+        <h3>Опытные мастера</h3>
+        <p>Свой штат квалифицированных специалистов с профильным образованием, регулярная аттестация. Работаем без посредников.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-index">03</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><rect x="12" y="8" width="24" height="32" rx="2"/><line x1="17" y1="16" x2="31" y2="16"/><line x1="17" y1="22" x2="31" y2="22"/><path d="M17 29l3 3 7-7"/></svg>
+        </div>
+        <h3>Фиксированная смета</h3>
+        <p>Смета утверждается до начала работ и не меняется. Любые доп. работы — только с вашего согласия.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-index">04</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><path d="M24 6l14 5v11c0 10-6 17-14 20-8-3-14-10-14-20V11l14-5z"/><path d="M17 24l5 5 10-11"/></svg>
+        </div>
+        <h3>Гарантия качества</h3>
+        <p>Письменная гарантия 3 года на все виды работ. Недочёты устраняем за свой счёт в кратчайшие сроки.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-index">05</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><rect x="8" y="15" width="32" height="21" rx="3"/><path d="M17 15l3-5h8l3 5"/><circle cx="24" cy="25.5" r="6.5"/></svg>
+        </div>
+        <h3>Фотоотчёт</h3>
+        <p>Ежедневные фото в Telegram, доступ к камерам на объекте. Полная прозрачность хода ремонта в реальном времени.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-index">06</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><rect x="8" y="24" width="14" height="14"/><rect x="26" y="24" width="14" height="14"/><rect x="17" y="8" width="14" height="14"/></svg>
+        </div>
+        <h3>Свои материалы</h3>
+        <p>Закупаем материалы сами со скидками партнёров или работаем с вашими. Даём точный расчёт количества.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <p class="kicker">Как мы работаем</p>
+        <h2>Первые шаги — от заявки до сметы</h2>
+      </div>
+      <a href="#" class="process-link">Смотреть весь процесс работы →</a>
+    </div>
+
+    <div class="process-track">
+      <svg class="process-line" viewBox="0 0 1200 4" preserveAspectRatio="none" aria-hidden="true"><path d="M0 2H1200"/></svg>
+      <div class="process-grid">
+        <div class="process-step">
+          <span class="process-node">01</span>
+          <h3>Заявка и выезд замерщика</h3>
+          <p>Оставляете заявку — инженер бесплатно выезжает на объект, снимает точные размеры и фиксирует техническое состояние.</p>
+        </div>
+        <div class="process-step">
+          <span class="process-node">02</span>
+          <h3>Смета и договор за 24 часа</h3>
+          <p>Готовим детальную смету и договор с фиксированной стоимостью и сроками — без скрытых доплат.</p>
+        </div>
+        <div class="process-step">
+          <span class="process-node">03</span>
+          <h3>Дизайн-проект и планировка</h3>
+          <p>Разрабатываем 3D-визуализацию, рабочие чертежи и спецификацию материалов, согласуем каждую деталь.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="contacts">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <a href="#hero-content" class="logo">AiRem<span>One</span></a>
+      <p>Ремонт квартир под ключ и дизайн интерьеров в Москве. Инженерная точность на каждом этапе.</p>
+      <div class="footer-hours">
+        <p>Пн–Пт: 9:00–20:00</p>
+        <p>Сб–Вс: 10:00–18:00</p>
+      </div>
+    </div>
+
+    <nav class="footer-col" aria-label="Навигация по сайту">
+      <p class="footer-col-title">Навигация</p>
+      <ul>
+        <li><a href="#">Ремонт под ключ</a></li>
+        <li><a href="#">Стоимость работ</a></li>
+        <li><a href="#">Дизайн-проект</a></li>
+        <li><a href="#">Наши работы</a></li>
+        <li><a href="#advantages">О нас</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+        <li><a href="#">Вакансии</a></li>
+        <li><a href="#">Документы</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer-col">
+      <p class="footer-col-title">Контакты</p>
+      <ul class="footer-contacts">
+        <li><a href="tel:+79804998880">+7 (980) 499-88-80</a></li>
+        <li><a href="mailto:airemone2@gmail.com">airemone2@gmail.com</a></li>
+        <li>г. Москва, ул. Барклая, 6, к.2</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <p class="footer-col-title">Бесплатная консультация</p>
+      <p class="footer-cta-text">Рассчитаем стоимость ремонта и подберём решение за 24 часа.</p>
+      <a href="#" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </div>
+  </div>
+
+  <div class="footer-divider container"></div>
+
+  <div class="container footer-bottom">
+    <p>© 2026 AiRemOne</p>
+    <div class="footer-legal">
+      <a href="#">Политика конфиденциальности</a>
+      <a href="#">Договор оферты</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nav = document.getElementById('siteNav');
+  var toggle = document.getElementById('navToggle');
+  toggle.addEventListener('click', function(){
+    var isOpen = nav.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('is-scrolled', window.scrollY > 40);
+  }, { passive:true });
+
+  function animateCounter(el){
+    var target = parseFloat(el.dataset.count || '0');
+    var suffix = el.dataset.suffix || '';
+    var duration = 1700;
+    var start = performance.now();
+    function tick(now){
+      var p = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (p < 1) { requestAnimationFrame(tick); }
+      else { el.textContent = target + suffix; el.classList.add('glow-done'); }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  var counters = document.querySelectorAll('[data-count]');
+  var hasIO = 'IntersectionObserver' in window;
+
+  if (hasIO) {
+    var counterIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { animateCounter(entry.target); counterIO.unobserve(entry.target); }
+      });
+    }, { threshold:0.4 });
+    counters.forEach(function(el){ counterIO.observe(el); });
+  } else {
+    counters.forEach(function(el){ el.textContent = el.dataset.count + (el.dataset.suffix || ''); });
+  }
+
+  var advantages = document.getElementById('advantages');
+  var advHead = advantages.querySelector('.section-head');
+  var advGrid = advantages.querySelector('.cards-grid');
+  var advCards = advantages.querySelectorAll('.card');
+
+  var process = document.getElementById('process');
+  var processHead = process.querySelector('.section-head');
+  var processTrack = process.querySelector('.process-track');
+  var processSteps = process.querySelectorAll('.process-step');
+
+  if (hasIO) {
+    var advSectionIO = new IntersectionObserver(function(entries, observerSelf){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { advantages.classList.add('grid-visible'); observerSelf.unobserve(entry.target); }
+      });
+    }, { threshold:0.12 });
+    advSectionIO.observe(advantages);
+
+    var advHeadIO = new IntersectionObserver(function(entries, observerSelf){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observerSelf.unobserve(entry.target); }
+      });
+    }, { threshold:0.3 });
+    advHeadIO.observe(advHead);
+
+    var advGridIO = new IntersectionObserver(function(entries, observerSelf){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          advCards.forEach(function(card, i){
+            setTimeout(function(){ card.classList.add('is-visible'); }, i * 90);
+          });
+          observerSelf.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.08 });
+    advGridIO.observe(advGrid);
+
+    var processHeadIO = new IntersectionObserver(function(entries, observerSelf){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observerSelf.unobserve(entry.target); }
+      });
+    }, { threshold:0.3 });
+    processHeadIO.observe(processHead);
+
+    var processTrackIO = new IntersectionObserver(function(entries, observerSelf){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          process.classList.add('is-drawn');
+          processSteps.forEach(function(step, i){
+            setTimeout(function(){ step.classList.add('is-visible'); }, i * 110);
+          });
+          observerSelf.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.15 });
+    processTrackIO.observe(processTrack);
+  } else {
+    advantages.classList.add('grid-visible');
+    advHead.classList.add('is-visible');
+    advCards.forEach(function(card){ card.classList.add('is-visible'); });
+    process.classList.add('is-drawn');
+    processHead.classList.add('is-visible');
+    processSteps.forEach(function(step){ step.classList.add('is-visible'); });
+  }
+})();
+</script>
+</body>
+</html>

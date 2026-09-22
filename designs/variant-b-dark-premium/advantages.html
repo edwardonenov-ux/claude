@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Почему выбирают нас — AiRemOne</title>
+<meta name="description" content="Шесть причин доверить ремонт квартиры под ключ AiRemOne: опыт 15 лет, фиксированная смета, гарантия 3 года и ежедневные фотоотчёты.">
+<meta name="theme-color" content="#14120F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14120F;
+    --bg-alt:#1C1914;
+    --surface:#211D17;
+    --ink:#F4EEE2;
+    --ink-soft:#B7AC98;
+    --accent:#CFA35C;
+    --accent-bright:#E8C077;
+    --line: rgba(244,238,226,0.12);
+    --ease: cubic-bezier(.16,.8,.24,1);
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  h1,h2,h3,h4{ font-family:'Bricolage Grotesque',sans-serif; color:var(--ink); margin:0; font-weight:700; letter-spacing:-0.01em; }
+  .container{ width:100%; max-width:1240px; margin-inline:auto; padding-inline:1.5rem; }
+
+  .kicker{ display:inline-flex; align-items:center; gap:.75rem; text-transform:uppercase; letter-spacing:.12em; font-size:.75rem; font-weight:600; color:var(--accent-bright); margin-bottom:1rem; }
+  .kicker::before{ content:''; width:28px; height:1px; background:var(--accent); }
+
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.is-visible{ opacity:1; transform:none; }
+
+  .advantages{ position:relative; padding:clamp(5rem,9vw,7.5rem) 0; overflow:hidden; }
+  .advantages-grid-bg{ position:absolute; inset:0; z-index:0;
+    background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(ellipse at 50% 20%, black, transparent 72%);
+    mask-image:radial-gradient(ellipse at 50% 20%, black, transparent 72%);
+    opacity:0; transition:opacity 1.6s var(--ease); }
+  .advantages.grid-visible .advantages-grid-bg{ opacity:1; }
+
+  .section-head{ position:relative; z-index:1; display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:1.5rem; }
+  .section-head h2{ font-size:clamp(2rem,3.4vw,3.1rem); max-width:640px; }
+  .section-head-meta{ font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); border:1px solid var(--line); padding:.55rem .9rem; white-space:nowrap; }
+
+  .blueprint-rule{ position:relative; z-index:1; width:100%; height:16px; margin-top:1.5rem; margin-bottom:clamp(2.5rem,5vw,4rem); }
+  .blueprint-rule path{ fill:none; stroke:var(--accent); stroke-width:1; stroke-dasharray:1300; stroke-dashoffset:1300; transition:stroke-dashoffset 1.8s var(--ease); }
+  .advantages.grid-visible .blueprint-rule path{ stroke-dashoffset:0; }
+
+  .cards-grid{ position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+  @media (max-width:900px){ .cards-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .cards-grid{ grid-template-columns:1fr; } .section-head{ align-items:flex-start; } }
+
+  .card{ position:relative; padding:2.25rem 2rem; border:1px solid var(--line); background:var(--surface); border-radius:6px;
+    opacity:0; transform:translateY(28px);
+    transition:opacity .8s var(--ease), transform .5s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease); }
+  .card.is-visible{ opacity:1; transform:none; }
+  .card:hover{ border-color:var(--accent); box-shadow:0 22px 46px -26px rgba(207,163,92,.45); transform:translateY(-4px); }
+  .card-index{ position:absolute; top:1.5rem; right:1.75rem; font-family:'Bricolage Grotesque',sans-serif; font-size:.8rem; color:var(--ink-soft); letter-spacing:.05em; }
+  .card-icon{ width:46px; height:46px; margin-bottom:1.5rem; color:var(--accent); }
+  .card-icon svg{ width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; }
+  .card h3{ font-size:1.2rem; margin-bottom:.75rem; }
+  .card p{ color:var(--ink-soft); font-size:.95rem; line-height:1.65; margin:0; }
+
+  @media (prefers-reduced-motion:reduce){
+    *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+<section class="advantages" id="advantages">
+  <div class="advantages-grid-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <p class="kicker">Наши преимущества</p>
+        <h2>Почему выбирают нас</h2>
+      </div>
+      <span class="section-head-meta">Пункты 01–06</span>
+    </div>
+
+    <svg class="blueprint-rule" viewBox="0 0 1200 16" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 8H1200"/>
+    </svg>
+
+    <div class="cards-grid">
+
+      <article class="card">
+        <span class="card-index">01</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="10" r="3"/><line x1="24" y1="13" x2="15" y2="40"/><line x1="24" y1="13" x2="33" y2="40"/><path d="M17 34a9 9 0 0 1 14 0"/></svg>
+        </div>
+        <h3>Опыт 15 лет</h3>
+        <p>Более 500 сданных объектов. Работаем с квартирами любой сложности — от студий до пентхаусов. Каждый объект под личным контролем прораба.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-index">02</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><path d="M12 34a12 12 0 0 1 24 0"/><rect x="20" y="14" width="8" height="6" rx="1"/><path d="M8 34h32v4a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-4z"/></svg>
+        </div>
+        <h3>Опытные мастера</h3>
+        <p>Свой штат квалифицированных специалистов с профильным образованием, регулярная аттестация. Работаем без посредников.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-index">03</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><rect x="12" y="8" width="24" height="32" rx="2"/><line x1="17" y1="16" x2="31" y2="16"/><line x1="17" y1="22" x2="31" y2="22"/><path d="M17 29l3 3 7-7"/></svg>
+        </div>
+        <h3>Фиксированная смета</h3>
+        <p>Смета утверждается до начала работ и не меняется. Любые доп. работы — только с вашего согласия.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-index">04</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><path d="M24 6l14 5v11c0 10-6 17-14 20-8-3-14-10-14-20V11l14-5z"/><path d="M17 24l5 5 10-11"/></svg>
+        </div>
+        <h3>Гарантия качества</h3>
+        <p>Письменная гарантия 3 года на все виды работ. Недочёты устраняем за свой счёт в кратчайшие сроки.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-index">05</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><rect x="8" y="15" width="32" height="21" rx="3"/><path d="M17 15l3-5h8l3 5"/><circle cx="24" cy="25.5" r="6.5"/></svg>
+        </div>
+        <h3>Фотоотчёт</h3>
+        <p>Ежедневные фото в Telegram, доступ к камерам на объекте. Полная прозрачность хода ремонта в реальном времени.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-index">06</span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><rect x="8" y="24" width="14" height="14"/><rect x="26" y="24" width="14" height="14"/><rect x="17" y="8" width="14" height="14"/></svg>
+        </div>
+        <h3>Свои материалы</h3>
+        <p>Закупаем материалы сами со скидками партнёров или работаем с вашими. Даём точный расчёт количества.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+  var section = document.getElementById('advantages');
+  var head = section.querySelector('.section-head');
+  var grid = section.querySelector('.cards-grid');
+  var cards = section.querySelectorAll('.card');
+
+  if ('IntersectionObserver' in window) {
+    var sectionIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { section.classList.add('grid-visible'); sectionIO.unobserve(entry.target); }
+      });
+    }, { threshold:0.12 });
+    sectionIO.observe(section);
+
+    var headIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); headIO.unobserve(entry.target); }
+      });
+    }, { threshold:0.3 });
+    headIO.observe(head);
+
+    var gridIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          cards.forEach(function(card, i){
+            setTimeout(function(){ card.classList.add('is-visible'); }, i * 90);
+          });
+          gridIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.08 });
+    gridIO.observe(grid);
+  } else {
+    section.classList.add('grid-visible');
+    head.classList.add('is-visible');
+    cards.forEach(function(card){ card.classList.add('is-visible'); });
+  }
+})();
+</script>
+</body>
+</html>
