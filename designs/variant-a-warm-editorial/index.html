@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AiRemOne — Ремонт квартир под ключ в Москве</title>
+<meta name="description" content="AiRemOne — ремонт квартир под ключ и дизайн интерьеров в Москве. Бесплатный замер, смета за 24 часа, гарантия 3 года. Дизайн-направление «Тёплый эдиториал»." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F6F1E9;
+    --bg-alt:#EFE7D8;
+    --surface:#FFFFFF;
+    --ink:#211C16;
+    --ink-soft:#5B4F41;
+    --accent:#B5502E;
+    --accent-soft:#E4C9B8;
+    --accent-2:#7C8A6E;
+    --line:#DED2BB;
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Manrope', 'Segoe UI', sans-serif;
+    --font-mono: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  .wrap{ max-width:1200px; margin:0 auto; padding:0 32px; }
+
+  .grain{ position:fixed; inset:0; width:100%; height:100%; opacity:.035; z-index:999; pointer-events:none; mix-blend-mode:multiply; }
+
+  /* header */
+  .site-header{ position:sticky; top:0; z-index:30; background:var(--bg); padding:24px 0 0; }
+  .header-inner{ display:flex; align-items:center; justify-content:space-between; gap:24px; padding-bottom:20px; border-bottom:1px solid var(--line); }
+  .logo{ font-family:var(--font-display); font-weight:600; font-size:1.4rem; text-decoration:none; color:var(--ink); letter-spacing:.01em; }
+  .logo-accent{ font-style:italic; color:var(--accent); font-weight:500; }
+  .main-nav{ display:flex; gap:28px; }
+  .nav-link{ position:relative; font-size:.92rem; font-weight:500; text-decoration:none; color:var(--ink); padding:4px 0; }
+  .nav-link::after{ content:""; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--accent); transition:width .35s var(--ease); }
+  .nav-link:hover::after,.nav-link:focus-visible::after{ width:100%; }
+  .header-phone{ font-family:var(--font-mono); font-size:.92rem; font-weight:600; text-decoration:none; color:var(--ink); white-space:nowrap; }
+  @media (max-width:900px){ .main-nav{ display:none; } }
+  @media (max-width:560px){ .header-phone{ font-size:.82rem; } }
+
+  /* buttons */
+  .btn{ display:inline-flex; align-items:center; gap:.55rem; padding:.95rem 1.75rem; font-family:var(--font-body); font-weight:700; font-size:.95rem; text-decoration:none; border-radius:2px; transition:transform .35s var(--ease), box-shadow .35s var(--ease), background-color .35s var(--ease), border-color .35s var(--ease); border:1px solid transparent; white-space:nowrap; }
+  .btn-primary{ background:var(--accent); color:#fff; }
+  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 16px 32px -12px rgba(181,80,46,.55); }
+  .btn-secondary{ background:transparent; color:var(--ink); border-color:var(--line); }
+  .btn-secondary:hover{ border-color:var(--accent); background:var(--accent-soft); transform:translateY(-3px); }
+
+  /* hero */
+  .hero{ padding:64px 0 90px; position:relative; z-index:1; }
+  .hero-grid{ display:grid; grid-template-columns:1.08fr .92fr; gap:64px; align-items:start; }
+  .eyebrow{ display:flex; align-items:center; gap:12px; font-size:.82rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 28px; }
+  .eyebrow::before{ content:""; width:34px; height:1px; background:var(--accent); display:block; flex:none; }
+  .hero-title{ font-family:var(--font-display); font-weight:600; font-size:clamp(2.5rem, 4.6vw + 1rem, 4.4rem); line-height:1.04; margin:0 0 26px; letter-spacing:-.01em; }
+  .hero-title em{ font-style:italic; font-weight:500; color:var(--accent); }
+  .hero-sub{ font-size:1.15rem; color:var(--ink-soft); max-width:46ch; margin:0 0 40px; }
+  .hero-cta{ display:flex; flex-wrap:wrap; gap:16px; margin-bottom:56px; }
+  .hero-stats{ list-style:none; display:flex; flex-wrap:wrap; gap:40px; margin:0; padding:28px 0 0; border-top:1px solid var(--line); }
+  .stat-num{ display:block; font-family:var(--font-display); font-weight:600; font-size:clamp(1.9rem, 2.4vw + 1rem, 2.5rem); color:var(--ink); line-height:1; }
+  .stat-label{ display:block; margin-top:8px; font-size:.86rem; color:var(--ink-soft); max-width:12ch; }
+
+  .hero-visual{ position:relative; }
+  .photo-plaque{ margin:0; position:relative; aspect-ratio:4/5; border:1px solid var(--line); background:linear-gradient(150deg, var(--bg-alt) 0%, var(--accent-soft) 78%); overflow:hidden; will-change:transform; }
+  .plaque-art{ position:absolute; inset:0; width:100%; height:100%; color:var(--ink-soft); opacity:.55; padding:14%; }
+  .plaque-tag{ position:absolute; top:20px; left:20px; background:var(--surface); border:1px solid var(--line); color:var(--ink); font-size:.78rem; font-weight:700; padding:8px 14px; letter-spacing:.02em; }
+  .plaque-caption{ position:absolute; right:18px; bottom:16px; font-size:.72rem; color:var(--ink-soft); letter-spacing:.06em; text-transform:uppercase; font-weight:600; }
+
+  @media (max-width:900px){
+    .hero-grid{ grid-template-columns:1fr; gap:48px; }
+    .photo-plaque{ aspect-ratio:16/10; max-width:560px; }
+  }
+  @media (max-width:600px){
+    .wrap{ padding:0 20px; }
+    .hero{ padding:36px 0 56px; }
+    .header-inner{ padding-bottom:16px; }
+    .hero-stats{ gap:28px; }
+    .hero-cta{ gap:12px; flex-direction:column; }
+    .btn{ width:100%; justify-content:center; }
+  }
+  @media (max-width:420px){
+    .hero-title{ font-size:2.15rem; }
+  }
+
+  /* advantages section */
+  .section{ padding:96px 0; background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .section-head{ display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:end; margin-bottom:8px; }
+  .section-title{ font-family:var(--font-display); font-weight:600; font-size:clamp(2rem, 3vw + 1rem, 2.9rem); line-height:1.08; margin:0; letter-spacing:-.01em; }
+  .section-title em{ font-style:italic; font-weight:500; color:var(--accent); }
+  .section-dek{ margin:0; color:var(--ink-soft); font-size:1.05rem; max-width:38ch; }
+
+  .adv-grid{ list-style:none; margin:0; padding:56px 0 10px; display:grid; grid-template-columns:repeat(3,1fr); gap:52px 40px; }
+  .adv-card{ border-top:1px solid var(--line); padding-top:22px; transition:border-color .4s var(--ease), transform .4s var(--ease); }
+  .adv-card:hover{ border-color:var(--accent); transform:translateY(-4px); }
+  .adv-num{ display:block; font-family:var(--font-mono); font-weight:700; font-size:1.3rem; color:var(--accent); margin-bottom:14px; letter-spacing:.02em; }
+  .adv-title{ font-family:var(--font-display); font-weight:600; font-size:1.25rem; margin:0 0 10px; color:var(--ink); }
+  .adv-text{ margin:0; color:var(--ink-soft); font-size:.98rem; line-height:1.6; }
+
+  @media (min-width:901px){
+    .adv-grid > li:nth-child(2){ margin-top:44px; }
+    .adv-grid > li:nth-child(5){ margin-top:44px; }
+  }
+  @media (max-width:900px){ .adv-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:760px){
+    .section-head{ grid-template-columns:1fr; gap:18px; align-items:start; }
+    .section{ padding:64px 0; }
+  }
+  @media (max-width:600px){ .adv-grid{ grid-template-columns:1fr; gap:36px; padding-top:40px; } }
+
+  /* steps teaser */
+  .steps{ padding:96px 0; }
+  .steps-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:48px; flex-wrap:wrap; }
+  .steps-link{ font-size:.92rem; font-weight:700; color:var(--ink); text-decoration:none; display:inline-flex; align-items:center; gap:6px; padding-bottom:2px; border-bottom:1px solid var(--line); transition:border-color .3s var(--ease); }
+  .steps-link:hover{ border-color:var(--accent); }
+  .steps-link svg{ width:14px; height:14px; color:var(--accent); }
+  .steps-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+  .step{ border-top:1px solid var(--line); padding-top:20px; }
+  .step-num{ display:block; font-family:var(--font-mono); font-weight:700; color:var(--accent); font-size:1.2rem; margin-bottom:12px; }
+  .step-title{ font-family:var(--font-display); font-weight:600; font-size:1.15rem; margin:0 0 8px; }
+  .step-text{ margin:0; color:var(--ink-soft); font-size:.95rem; }
+  @media (max-width:760px){ .steps{ padding:64px 0; } .steps-grid{ grid-template-columns:1fr; gap:28px; } }
+
+  /* footer */
+  .site-footer{ background:var(--ink); color:var(--bg); padding:80px 0 0; }
+  .footer-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:48px; padding-bottom:56px; border-bottom:1px solid rgba(246,241,233,.18); }
+  .footer-logo{ font-family:var(--font-display); font-weight:600; font-size:1.4rem; text-decoration:none; color:var(--bg); letter-spacing:.01em; }
+  .footer-logo .logo-accent{ font-style:italic; font-weight:500; color:var(--accent-soft); }
+  .footer-tag{ margin:18px 0 0; color:rgba(246,241,233,.7); font-size:.95rem; max-width:34ch; }
+  .footer-col h3{ font-family:var(--font-body); font-weight:700; font-size:.8rem; text-transform:uppercase; letter-spacing:.1em; color:rgba(246,241,233,.7); margin:0 0 18px; }
+  .footer-links{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+  .footer-links a{ color:var(--bg); text-decoration:none; font-size:.95rem; position:relative; }
+  .footer-links a::after{ content:""; position:absolute; left:0; bottom:-3px; width:0; height:1px; background:var(--accent-soft); transition:width .35s var(--ease); }
+  .footer-links a:hover::after,.footer-links a:focus-visible::after{ width:100%; }
+  .footer-col--nav .footer-links{ display:block; columns:2; column-gap:20px; }
+  .footer-col--nav .footer-links li{ break-inside:avoid; margin-bottom:12px; }
+  .footer-contacts{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; font-size:.95rem; }
+  .footer-contacts a{ color:var(--bg); text-decoration:none; }
+  .footer-contacts a:hover{ text-decoration:underline; text-decoration-color:var(--accent-soft); }
+  .footer-contacts .muted{ color:rgba(246,241,233,.7); font-size:.88rem; display:block; margin-top:2px; }
+  .footer-bottom{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; padding:28px 0 34px; font-size:.85rem; color:rgba(246,241,233,.7); }
+  .footer-legal{ display:flex; gap:24px; list-style:none; margin:0; padding:0; flex-wrap:wrap; }
+  .footer-legal a{ color:rgba(246,241,233,.7); text-decoration:none; }
+  .footer-legal a:hover{ color:var(--bg); text-decoration:underline; }
+  @media (max-width:900px){
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+    .footer-col--brand{ grid-column:1 / -1; }
+  }
+  @media (max-width:600px){
+    .site-footer{ padding:56px 0 0; }
+    .footer-grid{ grid-template-columns:1fr; gap:36px; padding-bottom:40px; }
+    .footer-col--nav .footer-links{ columns:1; }
+    .footer-bottom{ flex-direction:column; align-items:flex-start; padding:22px 0 28px; }
+  }
+
+  /* reveal */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .75s var(--ease), transform .75s var(--ease); }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{ animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important; scroll-behavior:auto!important; }
+  }
+</style>
+</head>
+<body>
+<svg class="grain" aria-hidden="true" focusable="false">
+  <filter id="grainFilter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" result="noise"></feTurbulence>
+    <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0"></feColorMatrix>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#grainFilter)"></rect>
+</svg>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="#" class="logo">Ai<span class="logo-accent">Rem</span>One</a>
+    <nav class="main-nav" aria-label="Основная навигация">
+      <a class="nav-link" href="#">Ремонт под ключ</a>
+      <a class="nav-link" href="#">Стоимость работ</a>
+      <a class="nav-link" href="#">Дизайн-проект</a>
+      <a class="nav-link" href="#">Наши работы</a>
+      <a class="nav-link" href="#">О нас</a>
+      <a class="nav-link" href="#">Контакты</a>
+    </nav>
+    <a class="header-phone" href="tel:+79804998880">+7 (980) 499-88-80</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal-group">
+        <p class="eyebrow reveal">Ремонт под ключ · Москва</p>
+        <h1 class="hero-title reveal">Ремонт квартир <em>под ключ</em> в Москве</h1>
+        <p class="hero-sub reveal">Бесплатный выезд замерщика. Смета за 24 часа. Гарантия 3 года на все виды работ.</p>
+        <div class="hero-cta reveal">
+          <a href="#" class="btn btn-primary">Рассчитать ремонт под ключ</a>
+          <a href="#" class="btn btn-secondary">Смотреть цены</a>
+        </div>
+        <ul class="hero-stats reveal">
+          <li aria-label="500+ реализованных проектов">
+            <span class="stat-num" data-count-to="500" data-suffix="+" aria-hidden="true">0</span>
+            <span class="stat-label" aria-hidden="true">реализованных проектов</span>
+          </li>
+          <li aria-label="15 лет на рынке">
+            <span class="stat-num" data-count-to="15" data-suffix="" aria-hidden="true">0</span>
+            <span class="stat-label" aria-hidden="true">лет на рынке</span>
+          </li>
+          <li aria-label="Смета за 24 часа">
+            <span class="stat-num" data-count-to="24" data-suffix="ч" aria-hidden="true">0</span>
+            <span class="stat-label" aria-hidden="true">смета за 24 часа</span>
+          </li>
+        </ul>
+      </div>
+      <div class="hero-visual">
+        <figure class="photo-plaque reveal" data-parallax>
+          <svg class="plaque-art" viewBox="0 0 400 500" aria-hidden="true" focusable="false">
+            <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 40 L24 460 L376 460"></path>
+              <path d="M24 40 L100 78"></path>
+              <rect x="100" y="78" width="170" height="240"></rect>
+              <line x1="185" y1="78" x2="185" y2="318"></line>
+              <line x1="100" y1="198" x2="270" y2="198"></line>
+              <path d="M270 88 C 300 130, 296 260, 322 316"></path>
+              <path d="M322 316 C 300 296, 296 190, 300 120"></path>
+              <g transform="translate(50,372)">
+                <rect x="0" y="46" width="46" height="36" rx="2"></rect>
+                <path d="M23 46 C 8 22, 38 8, 23 -4"></path>
+                <path d="M23 46 C 38 26, 8 12, 23 -8"></path>
+              </g>
+              <g transform="translate(314,356)">
+                <line x1="10" y1="0" x2="10" y2="100"></line>
+                <path d="M-6 0 C -6 -14, 26 -14, 26 0 Z"></path>
+              </g>
+            </g>
+          </svg>
+          <span class="plaque-tag">Гарантия 3 года</span>
+          <figcaption class="plaque-caption">Фото объекта</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section advantages" id="advantages">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Почему выбирают нас</p>
+          <h2 class="section-title">Шесть причин доверить ремонт <em>AiRemOne</em></h2>
+        </div>
+        <p class="section-dek">6 причин, по которым владельцы квартир в Москве доверяют ремонт под ключ нашей команде.</p>
+      </div>
+
+      <ol class="adv-grid reveal-group">
+        <li class="adv-card reveal">
+          <span class="adv-num" aria-hidden="true">01</span>
+          <h3 class="adv-title">Опыт 15 лет</h3>
+          <p class="adv-text">Более 500 сданных объектов. Работаем с квартирами любой сложности — от студий до пентхаусов. Каждый объект под личным контролем прораба.</p>
+        </li>
+        <li class="adv-card reveal">
+          <span class="adv-num" aria-hidden="true">02</span>
+          <h3 class="adv-title">Опытные мастера</h3>
+          <p class="adv-text">Свой штат квалифицированных специалистов с профильным образованием, регулярная аттестация. Работаем без посредников.</p>
+        </li>
+        <li class="adv-card reveal">
+          <span class="adv-num" aria-hidden="true">03</span>
+          <h3 class="adv-title">Фиксированная смета</h3>
+          <p class="adv-text">Смета утверждается до начала работ и не меняется. Любые доп. работы — только с вашего согласия.</p>
+        </li>
+        <li class="adv-card reveal">
+          <span class="adv-num" aria-hidden="true">04</span>
+          <h3 class="adv-title">Гарантия качества</h3>
+          <p class="adv-text">Письменная гарантия 3 года на все виды работ. Недочёты устраняем за свой счёт в кратчайшие сроки.</p>
+        </li>
+        <li class="adv-card reveal">
+          <span class="adv-num" aria-hidden="true">05</span>
+          <h3 class="adv-title">Фотоотчёт</h3>
+          <p class="adv-text">Ежедневные фото в Telegram, доступ к камерам на объекте. Полная прозрачность хода ремонта в реальном времени.</p>
+        </li>
+        <li class="adv-card reveal">
+          <span class="adv-num" aria-hidden="true">06</span>
+          <h3 class="adv-title">Свои материалы</h3>
+          <p class="adv-text">Закупаем материалы сами со скидками партнёров или работаем с вашими. Даём точный расчёт количества.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="steps" id="process">
+    <div class="wrap">
+      <div class="steps-head reveal">
+        <div>
+          <p class="eyebrow">Как мы работаем</p>
+          <h2 class="section-title">От заявки до ключей — <em>три</em> простых шага</h2>
+        </div>
+        <a href="#" class="steps-link">
+          Смотреть весь процесс
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <ol class="steps-grid reveal-group">
+        <li class="step reveal">
+          <span class="step-num" aria-hidden="true">01</span>
+          <h3 class="step-title">Заявка и замер</h3>
+          <p class="step-text">Оставляете заявку — бесплатно выезжаем на объект и делаем точные замеры.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step-num" aria-hidden="true">02</span>
+          <h3 class="step-title">Смета и договор</h3>
+          <p class="step-text">Готовим смету за 24 часа, фиксируем стоимость в договоре — цена не меняется.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step-num" aria-hidden="true">03</span>
+          <h3 class="step-title">Ремонт и приёмка</h3>
+          <p class="step-text">Ведём работы с ежедневными фотоотчётами и сдаём объект с гарантией 3 года.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid reveal-group">
+      <div class="footer-col footer-col--brand reveal">
+        <a href="#" class="footer-logo">Ai<span class="logo-accent">Rem</span>One</a>
+        <p class="footer-tag">Ремонт квартир под ключ и дизайн интерьеров в Москве.</p>
+      </div>
+
+      <div class="footer-col footer-col--nav reveal">
+        <h3>Навигация</h3>
+        <ul class="footer-links">
+          <li><a href="#">Ремонт под ключ</a></li>
+          <li><a href="#">Стоимость работ</a></li>
+          <li><a href="#">Дизайн-проект</a></li>
+          <li><a href="#">Наши работы</a></li>
+          <li><a href="#">О нас</a></li>
+          <li><a href="#">Контакты</a></li>
+          <li><a href="#">Вакансии</a></li>
+          <li><a href="#">Документы</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col reveal">
+        <h3>Контакты</h3>
+        <ul class="footer-contacts">
+          <li><a href="tel:+79804998880">+7 (980) 499-88-80</a></li>
+          <li><a href="mailto:airemone2@gmail.com">airemone2@gmail.com</a></li>
+          <li>г. Москва, ул. Барклая, 6, к.2</li>
+          <li>
+            Пн–Пт 9:00–20:00
+            <span class="muted">Сб–Вс 10:00–18:00</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <ul class="footer-legal">
+        <li><a href="#">Политика конфиденциальности</a></li>
+        <li><a href="#">Договор оферты</a></li>
+      </ul>
+      <p>© 2026 AiRemOne</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('.reveal-group').forEach(function(group){
+    var items = group.querySelectorAll('.reveal');
+    items.forEach(function(el,i){ el.style.transitionDelay = Math.min(i,8) * 100 + 'ms'; });
+  });
+
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduceMotion){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold:.16, rootMargin:'0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  function animateCount(el){
+    var target = parseInt(el.getAttribute('data-count-to'), 10) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    if(reduceMotion){ el.textContent = target + suffix; return; }
+    var start = null, duration = 1300;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var counters = document.querySelectorAll('[data-count-to]');
+  if('IntersectionObserver' in window){
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ animateCount(entry.target); cio.unobserve(entry.target); }
+      });
+    }, { threshold:.6 });
+    counters.forEach(function(el){ cio.observe(el); });
+  } else {
+    counters.forEach(function(el){ el.textContent = el.getAttribute('data-count-to') + (el.getAttribute('data-suffix') || ''); });
+  }
+
+  var parallaxEls = document.querySelectorAll('[data-parallax]');
+  if(parallaxEls.length && !reduceMotion){
+    var ticking = false;
+    function updateParallax(){
+      var y = window.scrollY || window.pageYOffset;
+      parallaxEls.forEach(function(el){
+        var offset = Math.min(y * 0.06, 40);
+        el.style.transform = 'translateY(' + offset + 'px)';
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function(){
+      if(!ticking){ requestAnimationFrame(updateParallax); ticking = true; }
+    }, { passive:true });
+    updateParallax();
+  }
+})();
+</script>
+</body>
+</html>

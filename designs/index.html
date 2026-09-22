@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AiRemOne — выбор дизайн-направления</title>
+<style>
+  :root{
+    --bg:#F3F1ED; --ink:#17140F; --ink-soft:#605A4E; --line:#DAD4C8; --surface:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    padding:56px 24px 96px;
+  }
+  .wrap{max-width:1080px;margin:0 auto;}
+  header{margin-bottom:48px;}
+  header p.eyebrow{
+    text-transform:uppercase;letter-spacing:.14em;font-size:12px;
+    color:var(--ink-soft);margin:0 0 12px;
+  }
+  h1{font-size:clamp(28px,4vw,44px);line-height:1.1;margin:0 0 16px;}
+  header p.lead{font-size:17px;line-height:1.6;color:var(--ink-soft);max-width:640px;margin:0;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:4px;
+    overflow:hidden;display:flex;flex-direction:column;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(23,20,15,.08);}
+  .swatch{height:120px;display:flex;}
+  .swatch span{flex:1;}
+  .card-body{padding:24px;display:flex;flex-direction:column;gap:12px;flex:1;}
+  .card-body h2{font-size:20px;margin:0;}
+  .tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);}
+  .card-body p{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin:0;flex:1;}
+  .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
+  .links a{
+    font-size:13px;text-decoration:none;color:var(--ink);
+    border:1px solid var(--line);border-radius:3px;padding:7px 12px;
+    transition:background .2s ease,color .2s ease;
+  }
+  .links a:hover{background:var(--ink);color:var(--surface);border-color:var(--ink);}
+  .links a.primary{background:var(--ink);color:var(--surface);}
+  footer{margin-top:56px;font-size:13px;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">AiRemOne · Редизайн сайта</p>
+      <h1>Три направления на выбор</h1>
+      <p class="lead">Каждый вариант — самостоятельный набор файлов (hero / преимущества / футер / собранная демо-страница) на реальном контенте компании. Откройте «Смотреть страницу целиком» у понравившегося варианта, при выборе — см. <code>audit/PROMPT_FOR_DESIGN.md</code>.</p>
+    </header>
+    <div class="grid">
+      <article class="card">
+        <div class="swatch">
+          <span style="background:#F6F1E9"></span><span style="background:#B5502E"></span><span style="background:#211C16"></span><span style="background:#7C8A6E"></span>
+        </div>
+        <div class="card-body">
+          <p class="tag">Вариант A</p>
+          <h2>Тёплый эдиториал</h2>
+          <p>Боутик-студия интерьеров: кремовый + терракота, крупный serif Fraunces, волосяные линии вместо теней, тактильный grain-фон, лёгкий параллакс. Премиально, по-человечески, без холодности.</p>
+          <div class="links">
+            <a class="primary" href="variant-a-warm-editorial/index.html">Смотреть страницу целиком</a>
+            <a href="variant-a-warm-editorial/hero.html">Hero</a>
+            <a href="variant-a-warm-editorial/advantages.html">Преимущества</a>
+            <a href="variant-a-warm-editorial/footer.html">Футер</a>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="swatch">
+          <span style="background:#14120F"></span><span style="background:#CFA35C"></span><span style="background:#211D17"></span><span style="background:#F4EEE2"></span>
+        </div>
+        <div class="card-body">
+          <p class="tag">Вариант B</p>
+          <h2>Тёмная премиум-мастерская</h2>
+          <p>Единственный тёмный дизайн на всём рынке конкурентов: уголь + латунь, Ken Burns на фото-плашках, чертёжные линии, свечение при hover. Инженерная точность и доверие через сдержанность.</p>
+          <div class="links">
+            <a class="primary" href="variant-b-dark-premium/index.html">Смотреть страницу целиком</a>
+            <a href="variant-b-dark-premium/hero.html">Hero</a>
+            <a href="variant-b-dark-premium/advantages.html">Преимущества</a>
+            <a href="variant-b-dark-premium/footer.html">Футер</a>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="swatch">
+          <span style="background:#FAF8F3"></span><span style="background:#FF4B12"></span><span style="background:#16140F"></span><span style="background:#FFD400"></span>
+        </div>
+        <div class="card-body">
+          <p class="tag">Вариант C</p>
+          <h2>Динамичный конструктор</h2>
+          <p>Самый смелый: строительный оранжевый, жёсткие офсетные тени, бегущая строка услуг, курсор-точка, отсылки к рулетке/чертежу. Энергично и современно, но профессионально.</p>
+          <div class="links">
+            <a class="primary" href="variant-c-bold-kinetic/index.html">Смотреть страницу целиком</a>
+            <a href="variant-c-bold-kinetic/hero.html">Hero</a>
+            <a href="variant-c-bold-kinetic/advantages.html">Преимущества</a>
+            <a href="variant-c-bold-kinetic/footer.html">Футер</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <footer>Все файлы самодостаточны (открываются двойным кликом в браузере), единственная внешняя зависимость — Google Fonts. Подробности по каждому направлению — в NOTES.md соответствующей папки.</footer>
+  </div>
+</body>
+</html>
